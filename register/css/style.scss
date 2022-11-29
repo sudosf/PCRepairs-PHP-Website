@@ -1,0 +1,82 @@
+/*********************************** 
+    Custom properties
+********************************** */
+
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+
+$main-bg: rgba(1, 0, 20, 0.075);
+$primary: $blue;
+$secondary: #6c757d;
+$info: $cyan;
+$dark: #212529;
+$grayish: #9fa6b2;
+$light: #f8f9fa;
+
+
+/* $theme-colors: (
+    "primary":    $blue,
+    "secondary":  $secondary,
+    "success":    $green,
+    "info":       $cyan,
+    "warning":    $yellow,
+    "danger":     $red,
+    "light":      $light
+    "dark":       $dark
+); */
+
+/*********************************** 
+  Custom properties --- END
+********************************** */
+
+html, body {
+  background-color: $main-bg;
+}
+
+
+/*********************************** 
+  login and register 
+********************************** */
+
+
+html,body,.login_intro {
+  height: 1300px;
+}
+
+.gradient-custom {
+  /* fallback for old browsers */
+  background: $info;
+
+  $gd-one: rgba(0, 0, 0, 0.712);
+  $gd-two: rgba(0, 0, 0, 0.856);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to bottom, $gd-one, $gd-two);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to bottom, $gd-one, $gd-two);
+}
+
+#intro {
+  background-image: url('../img/bg.PNG');
+  background-color: rgba(73, 60, 0, 0.616);
+  background-size: cover;
+
+  .intro-mask {
+    background-color: rgba(0, 0, 0, 0.589); 
+  }
+}
+
+.deep-shadow {
+  color: #e0dfdc;
+  letter-spacing: .1em;
+  text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
+}
+

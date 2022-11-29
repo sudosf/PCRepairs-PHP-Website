@@ -1,0 +1,29 @@
+// Your custom variables
+
+.container {
+    background-color: black;
+}
+
+$primary: #f11212 !default;
+$secondary: #b23cfd !default;
+$success: #00b74a !default;
+$info: #39c0ed !default;
+$warning: #ffa900 !default;
+$danger: #f93154 !default;
+$light: #000000 !default;
+$dark: black !default;
+$grayish: #9fa6b2 !default;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+  'white': $white,
+  'black': $black,
+  'grayish': $grayish,
+) !default;
