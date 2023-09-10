@@ -18,7 +18,7 @@ if (isset($_SESSION['customer_access']) ) {
     echo "</a>
     </li>";
     
-        // user has logged in (acess granted)
+    // user has logged in (acess granted)
     // show avatar and profile options
     echo "<li class='nav-item dropdown'>
         <a
@@ -34,7 +34,7 @@ if (isset($_SESSION['customer_access']) ) {
 
         <ul class='dropdown-menu text-center' aria-labelledby='navbarDropdownMenuLink'>
             <li>
-                <a class='dropdown-item pt-2 h5' href='./portal_admin/index.php'>
+                <a class='dropdown-item pt-2 h5' href='dashboard.php'>
                     <i class='fa-solid fa-arrow-up-right-from-square'></i>
                     My Portal
                 </a>
@@ -54,7 +54,7 @@ if (isset($_SESSION['customer_access']) ) {
     // show avatar and profile options
     echo "<ul class='navbar-nav d-flex flex-row align-items-center'>
             <li class='me-3 me-lg-0'>
-                <a class='nav-link me-3 px-0' href='./portal_customer/customer_portal.php'>
+                <a class='nav-link me-3 px-0' href='dashboard.php'>
                     <i class='fa-solid fa-arrow-up-right-from-square'></i>
                     Portal
                 </a>
