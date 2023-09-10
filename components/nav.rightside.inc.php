@@ -5,10 +5,10 @@
  * @links: Portal, sign in, sign up
  */
 
-if (isset($_SESSION['customer_access']) ) {
+if (isset($_SESSION['user_access']) ) {
     echo "<ul class='navbar-nav d-flex flex-row align-items-center'>
     <li class='me-3 me-lg-0'>
-        <a class='nav-link me-3 px-0' href='./portal_customer/customer_portal.php'>";
+        <a class='nav-link me-3 px-0' href='dashboard.php'>";
 
         // Show user name
         $row = $_SESSION['userData'];
@@ -61,13 +61,13 @@ if (isset($_SESSION['customer_access']) ) {
             </li>
             <li class='ms-3 me-lg-0'>
                 <!-- Button trigger SIGN IN modal -->
-                <a type='button' href='./login.php' class='btn btn-primary px-4 py-2'>
+                <a type='button' href='sign-in.php' class='btn btn-primary px-4 py-2'>
                     SIGN IN
                 </a>
             </li>
             <li class='ms-3 me-lg-0'>
                 <!-- Button trigger SIGN IN modal -->
-                <a type='button' href='./register.php' class='btn btn-dark px-4 py-2'>
+                <a type='button' href='sign-up.php' class='btn btn-dark px-4 py-2'>
                     SIGN UP
                 </a>
             </li>

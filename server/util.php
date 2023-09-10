@@ -33,10 +33,10 @@ class Util {
     }
     
     /*** database retrieve data method(s) ***/
-    public function emailExists($usernameEmail) {
+    public function userExists($username) {
         // get user info
-        $query = "SELECT * FROM customers
-                    WHERE email = '{$usernameEmail}'";
+        $query = "SELECT * FROM users
+                    WHERE username = '{$username}'";
         $row = $this->conn->query($query);
 
         // if the $result is not False,
@@ -51,21 +51,21 @@ class Util {
     }
 
     /*** database retrieve data method(s) ***/
-    public function getUserLoginData($usernameEmail, $passwordCheck, $table) {
+    public function getUserLoginData($username, $passwordCheck) {
         // get user info
-        $query = "SELECT * FROM {$table}
-                    WHERE email = '{$usernameEmail}'";
+        $query = "SELECT * FROM users
+                    WHERE username = '{$username}'";
         $row = $this->conn->query($query);
 
         $data = null;
         // if the $result is not False,
         // and contains at least one row
-        $usernameEmail = $hash_password = "";
+        $username = $hash_password = "";
         if ($row !== false) {
             if ($row->num_rows > 0) {
                 // user exists
                 $data = mysqli_fetch_array($row);
-                $usernameEmail = $data['email'];
+                $username = $data['username'];
                 $hash_password = $data['password'];
             }
         }
@@ -77,42 +77,8 @@ class Util {
         }
 
         // check if all user details are correct
-        if ($usernameEmail != "" && $hash_password != "") {
+        if ($username != "" && $hash_password != "") {
             if (password_verify($passwordCheck, $hash_password)) {
-                return $data;
-            }
-        }
-        return null;
-    }
-
-    /*** database retrieve data method(s) ***/
-    public function getAdminLoginData($usernameEmail, $passwordCheck, $table) {
-        // get user info
-        $query = "SELECT * FROM {$table}
-                    WHERE email = '{$usernameEmail}'";
-        $row = $this->conn->query($query);
-
-        $data = null;
-        // if the $result is not False,
-        // and contains at least one row
-        $usernameEmail = $password = "";
-        if ($row !== false) {
-            if ($row->num_rows > 0) {
-                // user exists
-                $data = mysqli_fetch_array($row);
-                $usernameEmail = $data['email'];
-                $password = $data['password'];
-            }
-        }
-        else {
-            echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-                unable to sign in at the moment, please try again later.
-            </div>";
-        }
-
-        // check if all user details are correct
-        if ($usernameEmail != "" && $password != "") {
-            if ($passwordCheck == $password) {
                 return $data;
             }
         }

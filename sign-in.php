@@ -3,6 +3,12 @@
 <title> PCRepairs - Sign in </title>
 </head>
 
+<style>
+    .bg-image {
+        background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');
+    }
+</style>
+
 <body>
     <!-- Start your project here-->
     <header>
@@ -12,7 +18,7 @@
                 <?php
                 require_once('components/logo.inc.php');
                 require_once('components/hamtoggler.php');
-                require_once('components/nav.login.inc.php');
+                require_once('components/nav.sign-in.inc.php');
                 ?>
 
             </div> <!-- container -->
@@ -20,8 +26,7 @@
     </header>
 
     <section id="intro" class="login_intro">
-        <div class="bg-image h-100"
-            style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');">
+        <div class="bg-image h-100">
             <div class="intro-mask mask"></div>
 
             <div class="mask d-flex align-items-center h-100">
@@ -40,7 +45,7 @@
 
                                         <!--Form Variables -->
                                         <?php
-                                        $usernameEmail = $password = "";
+                                        $username = $password = "";
 
                                         if (isset($_POST['submit'])) {
                                             require('server/util.php');
@@ -48,19 +53,18 @@
                                             $util = new Util();
                                             $conn = $util->conn;
 
-                                            $usernameEmail = mysqli_real_escape_string($conn, $_POST['username']);
+                                            $username = mysqli_real_escape_string($conn, $_POST['username']);
                                             $password = mysqli_real_escape_string($conn, $_POST['psw']);
-                                            $usernameEmail = $util->strip_email($usernameEmail);
+                                            $username = $util->strip_email($username);
                                         }
                                         ?>
 
-                                        <form action="login.php" method="POST">
+                                        <form class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                                             <div class="form-outline form-white mb-4">
-                                                <input type="email" id="typeEmail" name="username"
+                                                <input type="text" id="typeEmail" name="username"
                                                     class="form-control form-control-lg"
-                                                    placeholder="e.g user@gmail.com"
-                                                    value="<?php echo $usernameEmail; ?>" required />
-                                                <label class="form-label" for="typeEmail">Username/Email</label>
+                                                    value="<?php echo $username; ?>" required />
+                                                <label class="form-label" for="typeEmail">Username</label>
                                             </div>
 
                                             <div class="form-outline form-white mb-4">
@@ -71,15 +75,16 @@
 
                                             <?php
                                             if (isset($_POST['submit'])) {
-                                                $table = "customers";
-                                                $userData = $util->getUserLoginData($usernameEmail, $password, $table);
-                                                if ($userData != null) {
-                                                    $_SESSION['customer_access'] = 'true';
-                                                    $_SESSION['userData'] = $userData;
+                                                $userData = $util->getUserLoginData($username, $password);
 
-                                                    echo "<script> location.replace('index.php'); </script>";
-                                                    // header('Location: index.php');
-                                                } else {
+                                                // log in acess granted 
+                                                // user data saved
+                                                if ($userData != null) {
+                                                    $_SESSION['user_access'] = 'true'; 
+                                                    $_SESSION['userData'] = $userData; 
+
+                                                    echo "<script> location.replace('index.php'); </script>"; // redirect to home page
+                                                } else { // user access denied
                                                     echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
                                             unable to sign in, <strong>username/password</strong> incorrect
                                         </div>";
@@ -95,17 +100,10 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <p class="mb-0">Don't have an account? <a href="register.php"
+                                        <p class="mb-0">Don't have an account? <a href="sign-up.php"
                                                 class="text-light fw-bold">Sign up</a></p>
                                     </div>
 
-                                    <div class="text-center">
-                                        <p class="mt-3 mb-0"><small class="me-2">I am a member of staff:</small><a
-                                                href="portal_admin/login.php"
-                                                class="btn btn-sm btn-grayish text-dark p-1">
-                                                <small>admin sign in</small>
-                                            </a></p>
-                                    </div>
                                 </div>
                             </div>
                         </div>

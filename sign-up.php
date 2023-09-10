@@ -3,6 +3,12 @@
 	<title> PCRepairs - Sign up </title>
 </head>
 
+<style>
+    .bg-image {
+        background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');
+    }
+</style>
+
 <body>
 	<!-- Start your project here-->
 
@@ -13,7 +19,7 @@
 			<?php
 				include('components/logo.inc.php');
 			 	include('components/hamtoggler.php');
-        		include('components/nav.login.inc.php');
+        		include('components/nav.sign-in.inc.php');
 			?>
 
 		</div> <!-- container -->
@@ -21,7 +27,7 @@
 	</header>
 
     <section id="intro" class="login_intro">
-        <div class="bg-image vh-100" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');">
+        <div class="bg-image vh-100">
 			<div class="intro-mask mask"></div>
 
             <div  class="mask d-flex align-items-center  my-5 container">
@@ -102,20 +108,28 @@
 							if (isset($_POST['submit'])) {
 								if ($psw !== $psw_repeat) {
 									echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-											<strong>passwords</strong> do not match, please try again.
+											the <strong>passwords</strong> do not match, please try again.
 										</div>";
 								}
-								elseif ( $util->emailExists($email) ) {
+								elseif ( $util->userExists($email) ) {
 									echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-											unable to register account, <strong>user email</strong> already exists
+											unable to register account, <strong>user account</strong> already exists
 										</div>";                                       
 								}
 								else {
+
+									$customer_id = uniqid("cust-");
+									$username = $email;
+									 
 									// hash the password to store
 									$psw = password_hash($psw, PASSWORD_DEFAULT);
 
-									$query = "INSERT INTO customers (lastname, firstname, email, mobile, password)
-									VALUES ('$lname', '$fname', '$email', '$mobile', '$psw');";
+									//$query = "INSERT INTO customers (lastname, firstname, email, mobile, password)
+									//VALUES ('$lname', '$fname', '$email', '$mobile', '$psw');";
+
+									$query = "INSERT INTO users (id, firstname, lastname, email, mobile, password, type, username)
+									VALUES ('$customer_id', '$fname', '$lname', '$email', '$mobile', '$psw', 'customer', '$username');";
+
 
 									$result = mysqli_query($conn, $query);
 
@@ -127,7 +141,7 @@
 										echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
 											Account successfully created, proceed to Sign in page:
 											<div class='text-center'>
-												<a href='login.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>Sign in</a>
+												<a href='sign-in.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>Sign in</a>
 											</div>
 										</div>";
 
@@ -145,7 +159,7 @@
 
 
                           <div class="text-center mt-4">
-                            <p class="mb-0">Already have an account? <a href="login.php" class="text-light fw-bold">Sign in</a></p>
+                            <p class="mb-0">Already have an account? <a href="sign-in.php" class="text-light fw-bold">Sign in</a></p>
                             </div>
 
                         </div>

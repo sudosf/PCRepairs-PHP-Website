@@ -1,7 +1,7 @@
 <?php
 
-// if ( !isset($_SESSION['customer_access']) ) {
-//     header("Location: login.php");
-// }
+    if ( !isset($_SESSION['user_access']) ) {
+        header("Location: sign-in.php");
+    }
 
 ?>
