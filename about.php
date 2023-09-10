@@ -61,7 +61,7 @@
                             <div class="card mask-about py-5 text-white popup">
                                 <!-- Card  -->
                                 <div class="card-body popup">
-                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/siya.jpg" alt="avatar"
+                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/profile.png" alt="avatar"
                                         style="width: 150px; height: 150px;">
 
                                     <h5 class="mb-4">Siyabonga Fortune</h5>
@@ -86,7 +86,7 @@
                             <div class="card mask-about py-5 text-white popup">
                                 <!-- Card  -->
                                 <div class="card-body">
-                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/Computer-Repair.jpg"
+                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/profile.png"
                                         alt="avatar" style="width: 150px; height: 150px;">
 
                                     <h5 class="mb-4">Cabe Morrison</h5>
@@ -105,7 +105,7 @@
                             <div class="card mask-about py-5 text-white popup">
                                 <!-- Card  -->
                                 <div class="card-body popup">
-                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/ben.jpg" alt="avatar"
+                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/profile.png" alt="avatar"
                                         style="width: 150px; height: 150px;">
 
                                     <h5 class="mb-4">Benjamin Spies</h5>
@@ -126,7 +126,7 @@
                             <div class="card mask-about py-5 text-white popup">
                                 <!-- Card  -->
                                 <div class="card-body">
-                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/unakho.jpg" alt="avatar"
+                                    <img class="rounded-circle shadow-2-strong mb-5" src="img/profile.png" alt="avatar"
                                         style="width: 150px; height: 150px;">
 
                                     <h5 class="mb-4">Unakho Ngumla</h5>
