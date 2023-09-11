@@ -1,6 +1,5 @@
 <?php 
     include("portal_components/head.inc.php");
-    include("server/secure.php");
 ?>
 
     <title>Portal - Dashboard</title>
