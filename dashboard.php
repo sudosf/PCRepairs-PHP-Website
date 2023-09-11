@@ -1,6 +1,6 @@
 <?php 
-include("portal_components/head.inc.php");
-include("server/secure.php");
+    include("portal_components/head.inc.php");
+    include("server/secure.php");
 ?>
 
     <title>Portal - Dashboard</title>
@@ -38,13 +38,10 @@ include("server/secure.php");
 
             <!-- Nav Item - Charts(Previous) -->
             <li class="nav-item">
-                <a class="nav-link" href="book.php">
+                <a class="nav-link" href="portal_book.php">
                     <i class="fa fa-solid fa-book"></i>
                     <span>Book New Job</span></a>
             </li>
-
-            <?php include("portal_components/report.show.inc.php"); ?>
-
 
             <!-- Nav Item - Tables(Previous) -->
             <li class="nav-item">
@@ -86,23 +83,28 @@ include("server/secure.php");
 
                     <!-- Progress Variable -->
                     <?php 
-                    require('server/util.php');
-                    // utility functions
-                    $util = new Util();
-                    $conn = $util->conn;
+                        require('server/util.php');
+                        // utility functions
+                        $util = new Util();
+                        $conn = $util->conn;
 
-                    $query = "SELECT * FROM repairjobs";
-                    $result = $util->getTableData($query);
+                        $userData = $_SESSION['userData'];
+                        $userID = $userData['id'];
 
-                    $pendingJobs = $assignedJobs = $completeJobs = 0;
+                        $query = "SELECT * FROM repair_jobs
+                                WHERE userID='$userID'";
 
-                    while ($row = mysqli_fetch_array($result)) {
+                        $result = $util->getTableData($query);
 
-                        $status = $row['status'];
-                        if ($status == "complete") $completeJobs++;
-                        elseif ($status == "in-progress") $assignedJobs++;
-                        elseif ($status == "pending") $pendingJobs++;
-                    }    
+                        $pendingJobs = $inProgressJobs = $completeJobs = 0;
+
+                        while ($row = mysqli_fetch_array($result)) {
+
+                            $status = $row['status'];
+                            if ($status == "complete") $completeJobs++;
+                            elseif ($status == "in-progress") $inProgressJobs++;
+                            elseif ($status == "pending") $pendingJobs++;
+                        }    
                     ?>
 
                     <!-- Content Row -->
@@ -114,7 +116,7 @@ include("server/secure.php");
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Job Bookings</div>
+                                                Pending Jobs</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <?php echo $pendingJobs; ?>
                                             </div>
@@ -134,9 +136,9 @@ include("server/secure.php");
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                currently Assigned</div>
+                                                In Progress</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $assignedJobs; ?>
+                                                <?php echo $inProgressJobs; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -195,8 +197,8 @@ include("server/secure.php");
                                         <th>Job ID</th>
                                         <th>Type</th>
                                         <td>description</td>
-                                        <th>Date Received</th>
-                                        <th>Date Ended</th>
+                                        <th>Received</th>
+                                        <th>Ended</th>
                                         <th>Cost</th>
                                         <th>Status</th>
                                         <th>Options</th>
@@ -205,53 +207,43 @@ include("server/secure.php");
                                 <tbody>
 
                                 <?php
-                                $query = "SELECT * FROM repairjobs";
+
+                                $query = "SELECT * FROM repair_jobs
+                                        WHERE userID='$userID'";
                                 $result = $util->getTableData($query);
 
                                 if ($result != null) {
-                                    // SESSION variable to allow...
-                                    // access to delete page
-                                    $_SESSION['allow_staff_update'] = "true";
-
                                     while ($row = mysqli_fetch_array($result)) {
 
                                         $status = $row['status'];
-
-                                        $customerID = $row['customerID'];
-                                        if ($customerID == null) $customerID = "none";
-
-                                        $jobID = $row['jobID'];
-
+                                        $jobID = $row['id'];
                                         $description = $row['description'];
-
                                         $type = $row['type'];
-                                        $dateRecieved = $row['DateRecieved'];
-
-                                        $dateEnded = $row['DateEnded'];
-                                        if ($dateEnded == null) $dateEnded = "incomplete";
-
+                                        $created_on = $row['created_on'];
                                         $cost = $row['cost'];
-                                        if ($cost == null) $cost = "0.00";
+
+                                        $ended_on = $row['ended_on'];
+                                        $userID = $row['userID'];
+
+                                        if ($userID == null) $userID = "none";
+                                        if ($ended_on == null) $ended_on = "incomplete";
 
                                         echo "<tr>";
 
-                                        // set id for update page
-                                        $_SESSION['id'] = $jobID;
-
-                                        echo"<td>$customerID</td>
+                                        echo"<td>$userID</td>
                                             <td>$jobID</td>
                                             <td>$type</td>
                                             <td class='w-10'>$description</td>
-                                            <td>$dateRecieved</td>
-                                            <td>$dateEnded</td>
+                                            <td>$created_on</td>
+                                            <td>$ended_on</td>
                                             <td>$cost</td>
                                             <td>$status</td>
                                             <td>
-                                                <a href=\"update_staff.php?id={$jobID}\" class='btn btn-sm btn-success'>Assign</a>
+                                                <a href=\"update_staff.php?id={$jobID}\" class='btn btn-sm btn-success'>Edit</a>
 
                                                 <button type='button' class='btn btn-outline-danger btn-sm waves-effect waves-light' data-toggle='modal'
                                                 data-target='#centralModalLg'>
-                                                    Delete
+                                                    Cancel
                                                 </button>
                                             </td>";    
                                         echo "</tr>";
