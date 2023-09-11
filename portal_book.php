@@ -19,7 +19,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.php">
+                <a class="nav-link" href="dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -34,12 +34,10 @@
 
             <!-- Nav Item - Charts(Previous) -->
             <li class="nav-item active">
-                <a class="nav-link" href="book.php">
+                <a class="nav-link" href="portal_book.php">
                     <i class="fa fa-solid fa-book"></i>
                     <span>Book New Job</span></a>
             </li>
-
-            <?php include("portal_components/report.show.inc.php"); ?>
 
             <!-- Nav Item - Tables(Previous) -->
             <li class="nav-item">
