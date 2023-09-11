@@ -60,17 +60,17 @@
                                         ?>
 
                                         <form class="" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-                                            <div class="form-outline form-white mb-4">
-                                                <input type="text" id="typeEmail" name="username"
+                                            <div class="form mb-4">
+                                            <label class="text-light" for="typeEmail">Username</label>
+                                            <input type="text" id="typeEmail" name="username"
                                                     class="form-control form-control-lg"
                                                     value="<?php echo $username; ?>" required />
-                                                <label class="form-label" for="typeEmail">Username</label>
                                             </div>
 
-                                            <div class="form-outline form-white mb-4">
+                                            <div class="form mb-4">
+                                            <label class="text-light" for="typePassword">Password</label>
                                                 <input type="password" id="typePassword" name="psw"
                                                     class="form-control form-control-lg" requird />
-                                                <label class="form-label" for="typePassword">Password</label>
                                             </div>
 
                                             <?php
@@ -83,7 +83,7 @@
                                                     $_SESSION['user_access'] = 'true'; 
                                                     $_SESSION['userData'] = $userData; 
 
-                                                    echo "<script> location.replace('index.php'); </script>"; // redirect to home page
+                                                    echo "<script> location.replace('dashboard.php'); </script>"; // redirect to home page
                                                 } else { // user access denied
                                                     echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
                                             unable to sign in, <strong>username/password</strong> incorrect

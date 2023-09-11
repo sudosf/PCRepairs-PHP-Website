@@ -1,6 +1,6 @@
 <?php
 	include("components/head.inc.php");
-	require_once("server/secure.php");
+	include("server/secure.php");
 ?>
 
 	<title> PCRepairs - Booking </title>
@@ -28,7 +28,9 @@
 				<li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
 			</ul> <!-- Navbar Links -->
 
-      <?php include('components/nav.rightside.inc.php'); ?>
+      <?php 
+	  	// include('components/nav.rightside.inc.php'); 
+		?>
 
 			</div> <!-- Navbar items -->
 		</div> <!-- container -->
@@ -36,7 +38,7 @@
 	</header>
 
     <section id="intro" class="login_intro">
-        <div class="bg-image h-100">
+        <div class=" h-100">
 			<div class="intro-mask mask"></div>
 
             <div class="mask d-flex align-items-center v-100 mt-5">
@@ -61,27 +63,17 @@
 							?>
 
                           <form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
-                            <div class="form-outline mb-4">
-                                <input type="text" id="form6Example1" class="form-control text-dark " value="<?php echo $fname; ?>"/>
-                                <label class="form-label text-dark" for="form6Example1">First name</label>
+                          
+						  <p class="m-2 p-2 h6 fw-semibold">Booking Details</p>
+						  <div class="form-outline mb-4 rounded border border-white">
+                         	<?php 
+								echo "Name: ".$fname." ".$lname."<br>";
+								echo "Email: ".$email."<br>";
+								echo "Mobile: ".$mobile;
+							?>
                             </div>
 
-                            <div class="form-outline mb-4">
-                                <input type="text" id="form6Example2" class="form-control text-dark" value="<?php echo $lname; ?>"/>
-                                <label class="form-label text-dark " for="form6Example2">Last name</label>
-                            </div>
-          
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                              <input type="email" id="form6Example5" class="form-control text-dark" value="<?php echo $email; ?>"/>
-                              <label class="form-label text-dark " for="form6Example5">Email</label>
-                            </div>
-          
-                            <!-- Number input -->
-                            <div class="form-outline mb-4">
-                              <input type="tel" id="form6Example6" class="form-control text-dark" value="<?php echo $mobile; ?>"/>
-                              <label class="form-label text-dark" for="form6Example6">Phone</label>
-                            </div>
+	
 
 							<p class="m-0 p-1 h6 fw-semibold">Which of these best describes your problem?</p>
 							<select id="repair_type" name="repair_type" class="form-select" aria-label="Default select example">
@@ -91,15 +83,15 @@
 								<option value="Parts and Accessories">Parts &amp; Accessories</option>
 								<option value="System Install and Upgrades">System Install &amp; Upgrades</option>
 								<option value="Virus Removal Services">Virus Removal Services</option>
-								<option value="Internet and WiFi<">Internet &amp; WiFi</option>
+								<option value="Internet and WiFi">Internet &amp; WiFi</option>
 								<option value="Other">Other</option>
 							</select>
 
 							<!-- Message input -->
 							<p class="m-0 p-1 mt-4 h6 fw-semibold">Please provide further details on your problem if applicable</p>
 							<div class="form-outline my-2">
-								<textarea class="form-control text-dark" id="form6Example7" rows="4" name="description" required></textarea>
 								<label class="form-label text-dark" for="form6Example7">Description</label>
+								<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" required></textarea>
 							</div>
 
 							<?php 
@@ -109,14 +101,13 @@
 								$util = new Util();
 								$conn = $util->conn;
 
-								$customerID = $row['customerID'];
+								$userID = $row['id'];
 								$type = $_POST['repair_type'];
 								$description = $_POST['description'];
-								$date = date('Y-m-d');
-								$status = "pending";
+								$status = "pending"; //"pending, started, finished
 
-								$query = "INSERT INTO repairjobs (type, description, DateRecieved, status, customerID)
-								 			VALUES ('$type', '$description', '$date', '$status', '$customerID')";
+								$query = "INSERT INTO repair_jobs (type, description, status, userID)
+								 			VALUES ('$type', '$description', '$status', '$userID')";
 
 								$result = mysqli_query($conn, $query);
 
@@ -128,7 +119,7 @@
 									echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
 										Repair Job booked successfuly, go to your portal to manage all your jobs:
 										<div class='text-center'>
-											<a href='portal_customer/index.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>GO to Portal</a>
+											<a href='dashboard.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>GO to Portal</a>
 										</div>
 									</div>";
 									// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");

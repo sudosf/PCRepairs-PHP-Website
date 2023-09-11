@@ -27,8 +27,8 @@
 	</header>
 
     <section id="intro" class="login_intro">
-        <div class="bg-image vh-100">
-			<div class="intro-mask mask"></div>
+        <div class="bg-image h-100">
+			<div class="intro-mask mask "></div>
 
             <div  class="mask d-flex align-items-center  my-5 container">
                 <div class="container">
@@ -44,7 +44,7 @@
 							<?php
 
 								$fname = $lname = $mobile = "";
-								$email = $psw =$psw_repeat = "";
+								$username = $email = $psw = $psw_repeat = "";
 
 							if (isset($_POST['submit'])) {
 								require('server/util.php');
@@ -58,6 +58,8 @@
 
 								$email = mysqli_real_escape_string($conn, $_POST['email']);
 								$email = $util->strip_email($email);
+								$username = $util->strip_email($_POST['username']);
+
 								$psw = mysqli_real_escape_string($conn, $_POST['psw']);
 								$psw_repeat = mysqli_real_escape_string($conn, $_POST['psw2']);
 							}
@@ -67,41 +69,48 @@
                             <!-- 2 column grid layout with text inputs for the first and last names -->
                             <div class="row">
                               <div class="col-12 col-md-6 mb-4">
-                                <div class="form-outline">
-                                  <input type="text" id="form6Example1" class="form-control text-light" name="fname" value="<?php echo $lname; ?>" required/>
-                                  <label class="form-label text-light" for="form6Example1">First name</label>
+                                <div class="form">
+									<label class="form-label text-light" for="form6Example1">First name</label>
+    	                            <input type="text" id="form6Example1" class="form-control" name="fname" value="<?php echo $lname; ?>" required/>
                                 </div>
                               </div>
                               <div class="col-12 col-md-6 mb-4">
-                                <div class="form-outline">
-                                  <input type="text" id="form6Example2" class="form-control text-light" name="lname" value="<?php echo $lname; ?>" required/>
-                                  <label class="form-label text-light " for="form6Example2">Last name</label>
+                                <div class="form">
+									<label class="form-label text-light " for="form6Example2">Last name</label>
+                                  	<input type="text" id="form6Example2" class="form-control" name="lname" value="<?php echo $lname; ?>" required/>
                                 </div>
                               </div>
                             </div>
 
+							<!-- Username input -->
+							<div class="form mb-4">
+								<label class="form-label text-light " for="form6Example5">Username</label>
+                              	<input type="text" id="form6Example5" class="form-control" name="username" placeholder="e.g user123" value="<?php echo $username; ?>" required/>
+                            </div>
+
                             <!-- Email input -->
-                            <div class="form-outline mb-4">
-                              <input type="email" id="form6Example5" class="form-control text-light" name="email" placeholder="e.g user@gmail.com" value="<?php echo $email; ?>" required/>
-                              <label class="form-label text-light " for="form6Example5">Email</label>
+                            <div class="form mb-4">
+								<label class="form-label text-light " for="form6Example5">Email</label>
+                              	<input type="email" id="form6Example5" class="form-control" name="email" placeholder="e.g user@gmail.com" value="<?php echo $email; ?>" required/>
                             </div>
 
                             <!-- Number input -->
-                            <div class="form-outline mb-4">
-                              <input type="tel" id="form6Example6" class="form-control text-light" name="mobile"
-							  pattern="[0-9]{10}" title="must be 10 digits in the foramt: e.g 0713334444"
-							  placeholder="e.g 0724535531" value="<?php echo $mobile; ?>" required/>
-
-                              <label class="form-label text-light" for="form6Example6">Phone</label>
+                            <div class="form mb-4">
+								<label class="form-label text-light" for="form6Example6">Phone</label>
+                              	<input type="tel" id="form6Example6" class="form-control" name="mobile"
+							  		pattern="[0-9]{10}" title="must be 10 digits in the foramt: e.g 0713334444"
+							  		placeholder="e.g 0724535531" value="<?php echo $mobile; ?>" required
+								/>
                             </div>
 
-							<div class="form-outline form-white mb-4">
+							<div class="form form-white mb-4">
+								<label class="form-label  text-light" for="typePassword">Password</label>
 								<input type="password" id="psw" class="form-control form-control-lg" name="psw" value="<?php echo $psw; ?>" required/>
-								<label class="form-label" for="typePassword">Password</label>
 							</div>
-							<div class="form-outline form-white mb-4">
+
+							<div class="form form-white mb-4">
+								<label class="form-label  text-light" for="typePassword">Repeat Password</label>
 								<input type="password" id="psw_repeat" class="form-control form-control-lg" name="psw2" value="<?php echo $psw_repeat; ?>"  required/>
-								<label class="form-label" for="typePassword">Repeat Password</label>
 							</div>
 
 							<?php 
@@ -111,15 +120,14 @@
 											the <strong>passwords</strong> do not match, please try again.
 										</div>";
 								}
-								elseif ( $util->userExists($email) ) {
+								elseif ( $util->userExists($username) ) {
 									echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-											unable to register account, <strong>user account</strong> already exists
+											username: <strong>$username</strong> has been taken, please try a different one.
 										</div>";                                       
 								}
 								else {
 
 									$customer_id = uniqid("cust-");
-									$username = $email;
 									 
 									// hash the password to store
 									$psw = password_hash($psw, PASSWORD_DEFAULT);

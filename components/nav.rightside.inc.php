@@ -8,12 +8,12 @@
 if (isset($_SESSION['user_access']) ) {
     echo "<ul class='navbar-nav d-flex flex-row align-items-center'>
     <li class='me-3 me-lg-0'>
-        <a class='nav-link me-3 px-0' href='dashboard.php'>";
+        <a class='nav-link me-3 px-0'>";
 
         // Show user name
         $row = $_SESSION['userData'];
-        $firstname = $row['firstname'];
-        echo ucfirst($firstname);
+        $username = $row['username'];
+        echo $username;
 
     echo "</a>
     </li>";

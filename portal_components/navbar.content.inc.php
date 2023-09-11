@@ -135,13 +135,12 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 <?php
-                // Show user name
+                // Show username
                 $row = $_SESSION['userData'];
-                $firstname =  ucfirst($row['firstname']);
-                $lastname =  ucfirst($row['lastname']);
+                $username = $row['username'];
                 ?>
 
-                <span class="mr-2 d-none d-lg-inline text-dark"> <?php echo $firstname." ".$lastname; ?></span>
+                <span class="mr-2 d-none d-lg-inline text-dark"> <?php echo $username; ?></span>
                 <i class='fa fa-solid fa-user-astronaut fa-2x text-dark'></i>
             </a>
             <!-- Dropdown - User Information -->
