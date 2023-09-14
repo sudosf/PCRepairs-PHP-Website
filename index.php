@@ -62,7 +62,7 @@
 	</header>
 
 	<main class="container-fluid">
-		<h5 class="card-title text-light text-center display-5 fw-bold">Our Services</h5>
+		<h5 class="card-title text-dark text-center display-5 fw-bold">Our Services</h5>
 
 		<!-- Carousel wrapper -->
 		<div id="myCarousel" class="carousel carousel-fade slide" data-bs-ride="carousel">
