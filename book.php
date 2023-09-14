@@ -125,6 +125,9 @@
 						$description = $_POST['description'];
 						$status = "pending"; //"pending, started, finished
 
+						$error_code_job = $message_job = "";
+						$error_code_pc = $message_pc = "";
+
 						/* add to repair jobs table */
 						$query = "INSERT INTO repair_jobs (type, description, status, userID)
 									VALUES ('$type', '$description', '$status', '$userID')";
@@ -132,17 +135,27 @@
 						$result = mysqli_query($conn, $query);
 
 						if ($result == false) {
-							echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-								unable to book service, please try again later
-							".$conn->error."</div>";
+
+							// operation failed
+							$error_code_job = 1;
+							$message_job = "unable to book service, please try again later".$conn->error;
+
+							// echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+							// 	unable to book service, please try again later
+							// ".$conn->error."</div>";
 						} else {
-							echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
-								Repair Job booked successfuly, go to your portal to manage all your jobs:
-								<div class='text-center'>
-									<a href='dashboard.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>GO to Portal</a>
-								</div>
-							</div>";
-							// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
+
+							// operation successful
+							$error_code_job = 0;
+							$message_job = "Repair Job booked successfuly";
+
+							// echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
+							// 	Repair Job booked successfuly, go to your portal to manage all your jobs:
+							// 	<div class='text-center'>
+							// 		<a href='dashboard.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>GO to Portal</a>
+							// 	</div>
+							// </div>";
+							// // $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
 						}
 
 						/* add to computers table */
@@ -156,15 +169,28 @@
 						$result = mysqli_query($conn, $query);
 
 						if ($result == false) {
-							echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-								unable to add <strong>device information</strong>, please try again later on dashboard
-							".$conn->error."</div>";
+
+							// operation failed
+							$error_code_pc = 1;
+							$message_pc = "	unable to add <strong>device information</strong>, please try again later on your dashboard";
+
+							// echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+							// 	unable to add <strong>device information</strong>, please try again later on dashboard
+							// ".$conn->error."</div>";
 						} else {
-							echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
-								device information added successfuly.
-							</div>";
-							// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
+
+							// operation successful
+							$error_code_pc = 0;
+							$message_pc = "device information added successfuly.";
+
+							// echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
+							// 	device information added successfuly.
+							// </div>";
+							// // $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
 						}
+
+						// redirect to status.php
+						echo "<script>location.replace('status.php?error_code_job=$error_code_job&message_job=$message_job&error_code_pc=$error_code_pc&message_pc=$message_pc'); </script>"; 
 					}
 
 					?>

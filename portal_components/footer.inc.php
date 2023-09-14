@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="sticky-footer bg-white">
+<footer class="footer sticky-footer footer-fixed-bottom bg-white m-0">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
             © 2022 Copyright:

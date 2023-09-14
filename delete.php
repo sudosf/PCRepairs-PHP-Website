@@ -1,11 +1,5 @@
 <?php 
 include("portal_components/head.inc.php");
-include("server/secure.php");
-
-if ($_SESSION['allow_staff_update'] == "true") 
-    // do nothing, page will proceed operation
-    ;
-else header("Location: index.php");
 ?>
 
     <title>Portal - Delete</title>
@@ -48,9 +42,6 @@ else header("Location: index.php");
                     <span>Book New Job</span></a>
             </li>
 
-            <?php include("portal_components/report.show.inc.php"); ?>
-
-
             <!-- Nav Item - Tables(Previous) -->
             <li class="nav-item">
                 <a class="nav-link" href="messages.php">
@@ -78,27 +69,8 @@ else header("Location: index.php");
                 <?php include("portal_components/navbar.content.inc.php"); ?>
 
                 <?php
-                $jobID = $_REQUEST['jobID'];
 
-                require('../server/util.php');
-                // utility functions
-                $util = new Util();
-                $conn = $util->conn;
 
-                $query = "SELECT * FROM technicianList WHERE jobID = $jobID";
-                $result = $conn->query($query);
-
-                while ($row = mysqli_fetch_array($result)) {
-                    $query = "DELETE FROM technicianList WHERE jobID = $jobID";
-                    $result = $conn->query($query);
-                }
-
-                $jobID = $row['customerID'];
-
-                $query = "DELETE FROM repairjobs WHERE jobID = $jobID";
-                $result = $conn->query($query);
-
-                if ($result !== false) {
                     // operation successful
                     // success Text
                     echo"
@@ -109,8 +81,7 @@ else header("Location: index.php");
                         <a href='index.php'>&larr; Back to Dashboard</a>
                     </div>";
 
-                }
-                else {
+
                     // operation failed
                     // Error Text
                     echo "
@@ -119,8 +90,8 @@ else header("Location: index.php");
                         <p class='lead text-gray-800 mb-5'>Unable to delete, please contact system administrator</p>
                         <p class='text-gray-500 mb-0'>the operation was unsuccessful...</p>
                         <a href='index.php'>&larr; Back to Dashboard</a>
-                    </div>".$conn->error;
-                }
+                    </div>";
+                
             ?>
 
                 <?php include("portal_components/footer.inc.php"); ?>
