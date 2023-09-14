@@ -70,7 +70,7 @@
                     <div class="container-fluid my-5">
                         <div class="row justify-content-center">
                         <div class="col-12 col-lg-6">
-                            <div class="card gradient-custom-booking" style="border-radius: 1rem;">
+                            <div class="card" style="border-radius: 1rem;">
                             <div class="card-body text-dark p-5">
                                 <div class="text-center pt-1">
                                     <i class="fa-solid fa-basket-shopping fa-4x text-success"></i>

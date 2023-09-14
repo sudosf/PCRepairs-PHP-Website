@@ -28,7 +28,7 @@
 
     <section id="intro" class="login_intro">
         <div class="bg-image h-100">
-			<div class="intro-mask mask "></div>
+			<div class="intro-mask mask"></div>
 
             <div  class="mask d-flex align-items-center  my-5 container">
                 <div class="container">

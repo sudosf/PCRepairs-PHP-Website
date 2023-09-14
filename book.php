@@ -9,7 +9,7 @@
 <body>
 	<!-- Start your project here-->
 
-	<header>
+	<header class="" style="height: 5%">
 		<!-- Navbar -->
 		<nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0 p-0">
 		<div class="container">
@@ -37,113 +37,112 @@
 		</nav> <!-- Navbar -->
 	</header>
 
-    <section id="intro" class="login_intro">
-        <div class=" h-100">
-			<div class="intro-mask mask"></div>
+    <section class="container-fluid my-5">
 
-            <div class="mask d-flex align-items-center v-100 mt-5">
-                <div class="container-fluid my-5">
-                  <div class="row justify-content-center">
-                    <div class="col-12 col-lg-6">
-                      <div class="card " style="border-radius: 1rem;">
-                        <div class="card-body text-dark p-5">
-                            <div class="text-center pt-1">
-                                <i class="fa-solid fa-basket-shopping fa-4x text-success"></i>
-                                <h1 class="fw-bold my-4 text-uppercase">Book A Service</h1>
-                            </div>
+		<div class="container-fluid my-5">
+			<div class="row justify-content-center">
+			<div class="col-12 col-lg-6">
+				<div class="card " style="border-radius: 1rem;">
+				<div class="card-body text-dark p-5">
+					<div class="text-center pt-1">
+						<i class="fa-solid fa-basket-shopping fa-4x text-success"></i>
+						<h1 class="fw-bold my-4 text-uppercase">Book A Service</h1>
+					</div>
 
-							<?php
-							$row = $_SESSION['userData'];
+					<?php
+					$row = $_SESSION['userData'];
 
-							$fname = $row['firstname'];
-							$lname = $row['lastname'];
-							$email = $row['email'];
-							$mobile = $row['mobile'];
+					$fname = $row['firstname'];
+					$lname = $row['lastname'];
+					$email = $row['email'];
+					$mobile = $row['mobile'];
 
-							?>
+					?>
 
-                          <form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
-                          
-						  <p class="m-2 p-2 h6 fw-semibold">Booking Details</p>
-						  <div class="form-outline mb-4 rounded border border-white">
-                         	<?php 
-								echo "Name: ".$fname." ".$lname."<br>";
-								echo "Email: ".$email."<br>";
-								echo "Mobile: ".$mobile;
-							?>
-                            </div>
+					<form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+					
+					<h5 class="m-2 p-2 fw-semibold text-center">Booking Details</h5>
+					<section class="rounded mb-4">
+						<div class="border d-flex justify-content-around">
+							<h6>Name</h6>
+							<h6>Email</h6>
+							<h6>Mobile</h6>
+						</div>
 
-	
+						<div class="d-flex justify-content-around border border-top-0">
+							<h6> <?php echo $fname." ".$lname; ?> </h6>
+							<h6> <?php echo $email; ?> </h6>
+							<h6> <?php echo $mobile; ?> </h6>
+						</div>
+					</section>
 
-							<p class="m-0 p-1 h6 fw-semibold">Which of these best describes your problem?</p>
-							<select id="repair_type" name="repair_type" class="form-select" aria-label="Default select example">
-								
-								<option value="Computer Repair" selected>Computer Repair</option>
-								<option value="Data Recovery">Data Recovery</option>
-								<option value="Parts and Accessories">Parts &amp; Accessories</option>
-								<option value="System Install and Upgrades">System Install &amp; Upgrades</option>
-								<option value="Virus Removal Services">Virus Removal Services</option>
-								<option value="Internet and WiFi">Internet &amp; WiFi</option>
-								<option value="Other">Other</option>
-							</select>
+					<h6 class="m-0 p-1 h6 fw-semibold">Which of these best describes your problem?</h6>
+					<select id="repair_type" name="repair_type" class="form-select" aria-label="Default select example">
+						
+						<option value="Computer Repair" selected>Computer Repair</option>
+						<option value="Data Recovery">Data Recovery</option>
+						<option value="Parts and Accessories">Parts &amp; Accessories</option>
+						<option value="System Install and Upgrades">System Install &amp; Upgrades</option>
+						<option value="Virus Removal Services">Virus Removal Services</option>
+						<option value="Internet and WiFi">Internet &amp; WiFi</option>
+						<option value="Other">Other</option>
+					</select>
 
-							<!-- Message input -->
-							<p class="m-0 p-1 mt-4 h6 fw-semibold">Please provide further details on your problem if applicable</p>
-							<div class="form-outline my-2">
-								<label class="form-label text-dark" for="form6Example7">Description</label>
-								<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" required></textarea>
-							</div>
+					<!-- Message input -->
+					<p class="m-0 p-1 mt-4 h6 fw-semibold">Please provide further details on your problem if applicable</p>
+					<div class="form-outline my-2">
+						<label class="form-label text-dark" for="form6Example7">Description</label>
+						<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" required></textarea>
+					</div>
 
-							<?php 
-							if (isset($_POST['submit'])) {
-								require('server/util.php');
-								// utility functions
-								$util = new Util();
-								$conn = $util->conn;
+					<?php 
+					if (isset($_POST['submit'])) {
+						require('server/util.php');
+						// utility functions
+						$util = new Util();
+						$conn = $util->conn;
 
-								$userID = $row['id'];
-								$type = $_POST['repair_type'];
-								$description = $_POST['description'];
-								$status = "pending"; //"pending, started, finished
+						$userID = $row['id'];
+						$type = $_POST['repair_type'];
+						$description = $_POST['description'];
+						$status = "pending"; //"pending, started, finished
 
-								$query = "INSERT INTO repair_jobs (type, description, status, userID)
-								 			VALUES ('$type', '$description', '$status', '$userID')";
+						$query = "INSERT INTO repair_jobs (type, description, status, userID)
+									VALUES ('$type', '$description', '$status', '$userID')";
 
-								$result = mysqli_query($conn, $query);
+						$result = mysqli_query($conn, $query);
 
-								if ($result == false) {
-									echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-										unable to add account, please try again later
-									".$conn->error."</div>";
-								} else {
-									echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
-										Repair Job booked successfuly, go to your portal to manage all your jobs:
-										<div class='text-center'>
-											<a href='dashboard.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>GO to Portal</a>
-										</div>
-									</div>";
-									// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
-								}
-							}
+						if ($result == false) {
+							echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+								unable to add account, please try again later
+							".$conn->error."</div>";
+						} else {
+							echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
+								Repair Job booked successfuly, go to your portal to manage all your jobs:
+								<div class='text-center'>
+									<a href='dashboard.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>GO to Portal</a>
+								</div>
+							</div>";
+							// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
+						}
+					}
 
-							?>
+					?>
 
-                            <!-- Submit button -->
-                            <div class="text-center mt-4">
-                                <button class="btn btn-success btn-lg btn-rounded btn-block" name="submit" type="submit">Place Order</button>
-                            </div>
-                          </form>
+					<!-- Submit button -->
+					<div class="text-center mt-4">
+						<button class="btn btn-success btn-lg btn-rounded btn-block" name="submit" type="submit">Place Order</button>
+					</div>
+					</form>
 
-                          <div class="text-center mt-4">
-                            <p class="mb-0">We offer a wide range of services: <a href="services.php" class="text-success fw-bold">VIEW LIST</a></p>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div>
+					<div class="text-center mt-4">
+					<p class="mb-0">We offer a wide range of services: <a href="services.php" class="text-success fw-bold">VIEW LIST</a></p>
+				</div>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
     </section>
 
 	<?php include("components/footer.inc.php"); ?>
