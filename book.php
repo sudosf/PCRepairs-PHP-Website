@@ -79,7 +79,7 @@
 
 					<div class="input-group mb-4">
 						<span class="input-group-text fw-bold">Device Name</span>
-						<input id="pc_name" name="pc_name" class="form-control text-dark" required>	
+						<input id="pc_name" name="pc_name" class="form-control text-dark" value="" required>	
 					</div>
 
 					<div class="input-group mb-4">
@@ -110,7 +110,7 @@
 					<!-- Message input -->
 					<p class="m-0 p-1 mt-4 fw-bold">Please provide further details of your computer issue</p>
 					<div class="form-outline my-2">
-						<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" required></textarea>
+						<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" value="" required></textarea>
 					</div>
 
 					<?php 
@@ -181,7 +181,7 @@
 
 							// operation successful
 							$error_code_pc = 0;
-							$message_pc = "device information added successfuly.";
+							$message_pc = "device information added.";
 
 							// echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
 							// 	device information added successfuly.
