@@ -58,7 +58,9 @@
 
 								$email = mysqli_real_escape_string($conn, $_POST['email']);
 								$email = $util->strip_email($email);
-								$username = $util->strip_email($_POST['username']);
+
+								$username = mysqli_real_escape_string($conn, $_POST['username']);
+								$username = $util->strip_email($username);
 
 								$psw = mysqli_real_escape_string($conn, $_POST['psw']);
 								$psw_repeat = mysqli_real_escape_string($conn, $_POST['psw2']);

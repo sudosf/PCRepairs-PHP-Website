@@ -122,7 +122,8 @@
 
 						$userID = $row['id'];
 						$type = $_POST['repair_type'];
-						$description = $_POST['description'];
+						
+						$description =  mysqli_real_escape_string($conn, $_POST['description']);
 						$status = "pending"; //"pending, started, finished
 
 						$error_code_job = $message_job = "";
@@ -160,7 +161,7 @@
 
 						/* add to computers table */
 
-						$pc_name = $_POST['pc_name'];
+						$pc_name =  mysqli_real_escape_string($conn, $_POST['pc_name']);;
 						$pc_type = $_POST['pc_type'];
 
 						$query = "INSERT INTO computers (name, type)
