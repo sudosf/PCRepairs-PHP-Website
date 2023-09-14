@@ -48,7 +48,7 @@
                     <div class="col-auto">
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary mb-4">
-                            Subscribe
+                            Subsc
                         </button>
                     </div>
 

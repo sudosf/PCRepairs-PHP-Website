@@ -1,6 +1,6 @@
 <?php include("components/head.inc.php"); ?>
 
-	<title> PCRepairs - Home </title>
+	<title class=""> PCRepairs - Home </title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 			<div class="collapse navbar-collapse h5 fw-semibold"  id="navbarSupportedContent">
 			<!-- Navbar Links -->
 			<ul class="navbar-nav me-auto">
-				<li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
+				<li class="nav-item "><a class="nav-link active" href="index.php">Home</a></li>
 				<li class="nav-item"><a class="nav-link" href="services.php">Services</a></li>
 				<li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
 				<li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
@@ -62,7 +62,7 @@
 	</header>
 
 	<main class="container-fluid">
-		<h5 class="card-title text-dark text-center display-5 fw-bold">Our Services</h5>
+		<h5 class="card-title text-light text-center display-5 fw-bold">Our Services</h5>
 
 		<!-- Carousel wrapper -->
 		<div id="myCarousel" class="carousel carousel-fade slide" data-bs-ride="carousel">
