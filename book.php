@@ -69,29 +69,47 @@
 							<h6>Mobile</h6>
 						</div>
 
-						<div class="d-flex justify-content-around border border-top-0">
-							<h6> <?php echo $fname." ".$lname; ?> </h6>
-							<h6> <?php echo $email; ?> </h6>
-							<h6> <?php echo $mobile; ?> </h6>
+						<div class="mt-2 mb-0 d-flex justify-content-around fw-semibold border border-top-0">
+							<p> <?php echo $fname." ".$lname; ?> </p>
+							<p> <?php echo $email; ?> </p>
+							<p> <?php echo $mobile; ?> </p>
 						</div>
 					</section>
 
-					<h6 class="m-0 p-1 h6 fw-semibold">Which of these best describes your problem?</h6>
-					<select id="repair_type" name="repair_type" class="form-select" aria-label="Default select example">
-						
-						<option value="Computer Repair" selected>Computer Repair</option>
-						<option value="Data Recovery">Data Recovery</option>
-						<option value="Parts and Accessories">Parts &amp; Accessories</option>
-						<option value="System Install and Upgrades">System Install &amp; Upgrades</option>
-						<option value="Virus Removal Services">Virus Removal Services</option>
-						<option value="Internet and WiFi">Internet &amp; WiFi</option>
-						<option value="Other">Other</option>
-					</select>
+
+					<div class="input-group mb-4">
+						<span class="input-group-text fw-bold">Device Name</span>
+						<input id="pc_name" name="pc_name" class="form-control text-dark" required>	
+					</div>
+
+					<div class="input-group mb-4">
+						<span class="input-group-text fw-bold">Device Type</span>
+						<select id="pc_type" name="pc_type" class="form-select form-control text-dark" aria-label="Default select example">
+							
+							<option value="laptop" selected>Laptop</option>
+							<option value="desktop">Desktop</option>
+						</select>
+					</div>
+
+
+					<div class="input-group">
+						<span class="input-group-text fw-bold">Type of Service</span>
+
+						<select id="repair_type" name="repair_type" class="form-select form-control text-dark" aria-label="Default select example">
+							
+							<option value="Computer Repair" selected>Computer Repair</option>
+							<option value="Data Recovery">Data Recovery</option>
+							<option value="Parts and Accessories">Parts &amp; Accessories</option>
+							<option value="System Install and Upgrades">System Install &amp; Upgrades</option>
+							<option value="Virus Removal Services">Virus Removal Services</option>
+							<option value="Internet and WiFi">Internet &amp; WiFi</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
 
 					<!-- Message input -->
-					<p class="m-0 p-1 mt-4 h6 fw-semibold">Please provide further details on your problem if applicable</p>
+					<p class="m-0 p-1 mt-4 fw-bold">Please provide further details of your computer issue</p>
 					<div class="form-outline my-2">
-						<label class="form-label text-dark" for="form6Example7">Description</label>
 						<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" required></textarea>
 					</div>
 
@@ -107,6 +125,7 @@
 						$description = $_POST['description'];
 						$status = "pending"; //"pending, started, finished
 
+						/* add to repair jobs table */
 						$query = "INSERT INTO repair_jobs (type, description, status, userID)
 									VALUES ('$type', '$description', '$status', '$userID')";
 
@@ -114,7 +133,7 @@
 
 						if ($result == false) {
 							echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-								unable to add account, please try again later
+								unable to book service, please try again later
 							".$conn->error."</div>";
 						} else {
 							echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
@@ -125,13 +144,34 @@
 							</div>";
 							// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
 						}
+
+						/* add to computers table */
+
+						$pc_name = $_POST['pc_name'];
+						$pc_type = $_POST['pc_type'];
+
+						$query = "INSERT INTO computers (name, type)
+									VALUES ('$pc_name', '$pc_type')";
+						
+						$result = mysqli_query($conn, $query);
+
+						if ($result == false) {
+							echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+								unable to add <strong>device information</strong>, please try again later on dashboard
+							".$conn->error."</div>";
+						} else {
+							echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
+								device information added successfuly.
+							</div>";
+							// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
+						}
 					}
 
 					?>
 
 					<!-- Submit button -->
 					<div class="text-center mt-4">
-						<button class="btn btn-success btn-lg btn-rounded btn-block" name="submit" type="submit">Place Order</button>
+						<button class="btn btn-success btn-lg btn-rounded btn-block" name="submit" type="submit">Place Booking</button>
 					</div>
 					</form>
 
