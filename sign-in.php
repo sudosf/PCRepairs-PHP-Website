@@ -101,7 +101,7 @@
 
                                     <div class="text-center">
                                         <p class="mb-0">Don't have an account? <a href="sign-up.php"
-                                                class="text-light fw-bold">Sign up</a></p>
+                                                class="text-light fw-bold">Sign Up</a></p>
                                     </div>
 
                                 </div>

@@ -169,7 +169,7 @@
 
 
                           <div class="text-center mt-4">
-                            <p class="mb-0">Already have an account? <a href="sign-in.php" class="text-light fw-bold">Sign in</a></p>
+                            <p class="mb-0">Already have an account? <a href="sign-in.php" class="text-light fw-bold">Sign In</a></p>
                             </div>
 
                         </div>
