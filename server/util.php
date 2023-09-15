@@ -21,6 +21,7 @@ class Util {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
+        $data = mysqli_real_escape_string($this->conn, $data);
 
         return $data;
     }
@@ -28,6 +29,7 @@ class Util {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
+        $data = mysqli_real_escape_string($this->conn, $data);
 
         return $data;
     }
