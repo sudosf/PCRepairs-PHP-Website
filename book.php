@@ -57,6 +57,8 @@
 					$email = $row['email'];
 					$mobile = $row['mobile'];
 
+					$jobID = ""; // set job ID for computers table
+
 					?>
 
 					<form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
@@ -121,19 +123,21 @@
 						$conn = $util->conn;
 
 						$userID = $row['id'];
-						$type = $_POST['repair_type'];
-						
-						$description =  mysqli_real_escape_string($conn, $_POST['description']);
 						$status = "pending"; //"pending, started, finished
 
-						$error_code_job = $message_job = "";
-						$error_code_pc = $message_pc = "";
+						$type = $util->strip($_POST['repair_type']);
+						$description = $util->strip($_POST['description']);
 
 						/* add to repair jobs table */
 						$query = "INSERT INTO repair_jobs (type, description, status, userID)
 									VALUES ('$type', '$description', '$status', '$userID')";
 
 						$result = mysqli_query($conn, $query);
+						
+						$jobID = (int) mysqli_insert_id($conn); // set job ID for computers table
+
+						$error_code_job = $message_job = "";
+						$error_code_pc = $message_pc = "";
 
 						if ($result == false) {
 
@@ -161,11 +165,11 @@
 
 						/* add to computers table */
 
-						$pc_name =  mysqli_real_escape_string($conn, $_POST['pc_name']);;
-						$pc_type = $_POST['pc_type'];
+						$pc_name =  $util->strip($_POST['pc_name']);
+						$pc_type = $util->strip($_POST['pc_type']);
 
-						$query = "INSERT INTO computers (name, type)
-									VALUES ('$pc_name', '$pc_type')";
+						$query = "INSERT INTO computers (name, type, repair_jobID)
+									VALUES ('$pc_name', '$pc_type', '$jobID')";
 						
 						$result = mysqli_query($conn, $query);
 

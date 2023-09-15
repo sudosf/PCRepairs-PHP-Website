@@ -49,7 +49,6 @@
 					echo "
 					<div class='text-center'>
 						<div class='error mx-auto' data-text='Error'>Error</div>
-						<p class='lead text-gray-800 mb-5'>Unable to delete, please contact system administrator</p>
 						<p class='text-gray-500 mb-0'>$message_job</p>
 					</div>";
 				}
@@ -68,7 +67,6 @@
 					echo "
 					<div class='text-center'>
 						<div class='error mx-auto' data-text='Error'>Error</div>
-						<p class='lead text-gray-800 mb-5'>Unable to delete, please contact system administrator</p>
 						<p class='text-gray-500 mb-0'>$message_pc</p>
 					</div>";
 				}
