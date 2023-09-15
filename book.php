@@ -72,9 +72,9 @@
 						</div>
 
 						<div class="mt-2 mb-0 d-flex justify-content-around fw-semibold border border-top-0">
-							<p> <?php echo $fname." ".$lname; ?> </p>
-							<p> <?php echo $email; ?> </p>
-							<p> <?php echo $mobile; ?> </p>
+							<p class="px-1"> <?php echo $fname." ".$lname; ?> </p>
+							<p class="px-1"> <?php echo $email; ?> </p>
+							<p class="px-1"> <?php echo $mobile; ?> </p>
 						</div>
 					</section>
 
