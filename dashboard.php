@@ -97,13 +97,16 @@
 
                         $pendingJobs = $inProgressJobs = $completeJobs = 0;
 
-                        while ($row = mysqli_fetch_array($result)) {
+                        if ($result != false) {
 
-                            $status = $row['status'];
-                            if ($status == "complete") $completeJobs++;
-                            elseif ($status == "in-progress") $inProgressJobs++;
-                            elseif ($status == "pending") $pendingJobs++;
-                        }    
+                            while ($row = mysqli_fetch_array($result)) {
+
+                                $status = $row['status'];
+                                if ($status == "complete") $completeJobs++;
+                                elseif ($status == "in-progress") $inProgressJobs++;
+                                elseif ($status == "pending") $pendingJobs++;
+                            }    
+                        }
                     ?>
 
                     <!-- Content Row -->
@@ -249,7 +252,7 @@
                                     }
                                 } else {
                                     echo "<div class='alert alert-warning my-2 p-2 text-center' role='alert'>
-                                        no table data found".$this->conn->error."
+                                        no repair jobs found".$conn->error."
                                     </div>";
                                 }
                                 ?>
