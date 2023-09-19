@@ -79,7 +79,7 @@
 				  <div class="carousel-caption">
 					<h1>Computer Repair</h1>
 					<p>Full diagnosis and repair of all hardware and software problems on your desktop or laptop computer.</p>
-					<p><a class="btn btn-lg btn-primary" href="login.php">Sign up today</a></p>
+					<p><a class="btn btn-lg btn-primary" href="sign-up.php">Sign up today</a></p>
 				  </div>
 				</div>
 			  </div>
