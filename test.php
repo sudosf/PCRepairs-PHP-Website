@@ -69,6 +69,7 @@
 			$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 			$uploadOk = true;
+			$db_uploadOk = false;
 
 			// Check if image file is a actual image or fake image
 			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -92,9 +93,9 @@
 				$result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 				if ($result == true) {
 					echo "The file has been uploaded.";
-
 					// delete old file
 					unlink($target_dir . $curr_avatar);
+					$db_uploadOk = true;
 				} else {
 					echo "Sorry, there was an error uploading your file.";
 				}
@@ -104,9 +105,8 @@
 			}
 
 			// save file reference to database
-			// ERRORS ARE HIDDEN WHEN UPLOADING TO DATABASE
+			// ERRORS ARE HIDDEN WHEN UPLOADING TO DATABASE (on linux)
 			// SET $db_uploadOk = false to see image upload errors
-			$db_uploadOk = true;
 			if ($db_uploadOk) {
 				$query = "UPDATE users SET avatar = '$filename'
 				WHERE id = '$userID';";
@@ -118,6 +118,8 @@
 					echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
 						unable to upload image to database, please try again later
 					</div>";
+
+					unlink($target_file); // delete uploaded img
 				} else {
 					// operation successful
 					echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
