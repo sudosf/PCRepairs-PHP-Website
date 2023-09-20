@@ -73,7 +73,7 @@
 
 				echo "
 				<div class='text-center'>
-					<a class='h4' href='dashboard.php'>&larr; Go to Dashboard</a>
+					<a class='btn btn-primary' href='dashboard.php'>&larr; Go to Dashboard</a>
 					<br><br>
 					<a class='text-dark' href='index.php'>&larr; Back to Home</a>
 				</div>";

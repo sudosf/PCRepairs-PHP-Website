@@ -6,17 +6,26 @@
  */
 
 if (isset($_SESSION['user_access']) ) {
-    echo "<ul class='navbar-nav d-flex flex-row align-items-center'>
-    <li class='me-3 me-lg-0'>
-        <a class='nav-link me-3 px-0'>";
+    echo "
+    <ul class='navbar-nav d-flex flex-row text-center align-items-center'>
+    
+        <li class='me-3 me-lg-0'>
+            <a class='nav-link me-3 text-center rounded border border-2 border-dark' href='dashboard.php'>
+                <i class='fa-solid fa-arrow-up-right-from-square'></i>
+                My Portal
+            </a>
+        </li>
 
-        // Show user name
-        $row = $_SESSION['userData'];
-        $username = $row['username'];
-        echo $username;
+        <li class='me-3 me-lg-0'>
+            <a class='text-light me-3 px-0'>";
+
+            // Show user name
+            $row = $_SESSION['userData'];
+            $username = $row['username'];
+            echo $username;
 
     echo "</a>
-    </li>";
+        </li>";
     
     // user has logged in (acess granted)
     // show avatar and profile options
@@ -29,16 +38,10 @@ if (isset($_SESSION['user_access']) ) {
           data-mdb-toggle='dropdown'
           aria-expanded='false'
         >
-        <i class='fa-solid fa-user-astronaut fa-2x text-light'></i>
+            <i class='fa-solid fa-user-astronaut fa-2x text-light'></i>
         </a>
 
         <ul class='dropdown-menu text-center' aria-labelledby='navbarDropdownMenuLink'>
-            <li>
-                <a class='dropdown-item pt-2 h5' href='dashboard.php'>
-                    <i class='fa-solid fa-arrow-up-right-from-square'></i>
-                    My Portal
-                </a>
-            </li>
             <li>
                 <a class='dropdown-item pt-2 h5 text-danger' href='#' data-toggle='modal' data-target='#logoutModal'>
                     <i class='fa-solid fa-right-to-bracket'></i>
