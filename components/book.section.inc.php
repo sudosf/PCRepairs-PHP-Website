@@ -177,11 +177,11 @@
                         // $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
                     }
 
-                    // if ($error_code == 0) {
-                    //     // operation successful
-                    //     // redirect to status.php
-                    //     echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
-                    // }
+                    if ($error_code == 0) {
+                        // operation successful
+                        // redirect to status.php
+                        echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+                    }
 
                 }
             }
