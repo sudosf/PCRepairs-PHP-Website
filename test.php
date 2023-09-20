@@ -36,13 +36,13 @@
 					WHERE id = '$userID'";
 		$result = $util->getTableData($query);
 
-		$curr_profile_img = "";
+		$curr_avatar = "";
 		if ($result != false) {
 			while ($row = mysqli_fetch_array($result)) {
 
-				$curr_profile_img = $row['profile_img'];
+				$curr_avatar = $row['avatar'];
 				echo "<div class='container mb-5'>
-					<img src='uploads/$curr_profile_img' class='w-25' alt='profile-picture'>
+					<img src='uploads/$curr_avatar' class='w-25' alt='profile-picture'>
 					</div>";
 			}    
 		} else {
@@ -73,7 +73,7 @@
 			// Check if image file is a actual image or fake image
 			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 			if ($check !== false) {
-				echo "File is an image - " . $check["mime"] . ".";
+				// echo "File is an image - " . $check["mime"] . ".";
 				$uploadOk = true;
 			} else {
 				echo "File is not an image.";
@@ -91,10 +91,10 @@
 				// if everything is ok, try to upload file
 				$result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 				if ($result == true) {
-					echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+					echo "The file has been uploaded.";
 
 					// delete old file
-					unlink($target_dir . $curr_profile_img);
+					unlink($target_dir . $curr_avatar);
 				} else {
 					echo "Sorry, there was an error uploading your file.";
 				}
@@ -108,7 +108,7 @@
 			// SET $db_uploadOk = false to see image upload errors
 			$db_uploadOk = true;
 			if ($db_uploadOk) {
-				$query = "UPDATE users SET profile_img = '$filename'
+				$query = "UPDATE users SET avatar = '$filename'
 				WHERE id = '$userID';";
 
 				$result = $conn->query($query);
@@ -120,10 +120,9 @@
 					</div>";
 				} else {
 					// operation successful
-					// redirect to status.php
-					$error_code = 0;
-					$message = "profile picture successfully updated";			
-					// echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+					echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
+						image updated successfully
+					</div>";
 				}
 			}
 		}
