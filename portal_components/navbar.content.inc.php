@@ -10,6 +10,12 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
+        <li class='me-5 mt-3 me-lg-0'>
+            <a class='nav-link text-center rounded border border-2 border-dark' href='test.php'>
+                Testing
+            </a>
+        </li>
+
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"

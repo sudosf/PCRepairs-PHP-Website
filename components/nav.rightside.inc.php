@@ -10,6 +10,12 @@ if (isset($_SESSION['user_access']) ) {
     <ul class='navbar-nav d-flex flex-row text-center align-items-center'>
     
         <li class='me-3 me-lg-0'>
+            <a class='nav-link me-3 text-center rounded border border-2 border-dark' href='test.php'>
+                Testing
+            </a>
+        </li>
+
+        <li class='me-3 me-lg-0'>
             <a class='nav-link me-3 text-center rounded border border-2 border-dark' href='dashboard.php'>
                 <i class='fa-solid fa-arrow-up-right-from-square'></i>
                 My Portal
@@ -59,7 +65,7 @@ if (isset($_SESSION['user_access']) ) {
             <li class='me-3 me-lg-0'>
                 <a class='nav-link me-3 px-0' href='dashboard.php'>
                     <i class='fa-solid fa-arrow-up-right-from-square'></i>
-                    Portal
+                    My Portal
                 </a>
             </li>
             <li class='ms-3 me-lg-0'>
