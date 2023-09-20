@@ -25,7 +25,6 @@
 		<div id="content">
 
 			<?php
-
 				$error_code = (int) $_REQUEST['error_code'];
 				$message = $_REQUEST['message'];
 

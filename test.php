@@ -17,10 +17,40 @@
 	</header>
 
 	<!-- Content Wrapper -->
-	<div id="content-wrapper" class="container-fluid my-5">
+	<div id="content-wrapper" class="container">
 
 		<!-- Main Content -->
 		<div id="content">
+
+		<?php 
+		require('server/util.php');
+		// utility functions
+		$util = new Util();
+		$conn = $util->conn;
+
+		$row = $_SESSION['userData'];
+		$userID = $row['id'];
+
+		$query = "SELECT * 
+					FROM users
+					WHERE id = '$userID'";
+		$result = $util->getTableData($query);
+
+		if ($result != false) {
+			while ($row = mysqli_fetch_array($result)) {
+
+				$profile_img = $row['profile_img'];
+				echo "<div class='container mb-5'>
+					<img src='uploads/$profile_img' class='w-25' alt='profile-picture'>
+					</div>";
+			}    
+		} else {
+			// operation failed
+			echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+				unable to upload image to database, please try again later
+			</div>";
+		}
+		?>
 		
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" enctype="multipart/form-data">
 			Select image to upload:
@@ -30,75 +60,73 @@
 
 
 		<?php
-		// upload to database
-		$row = $_SESSION['userData'];
-		$username = $row['username'];
-
-		echo $username;
-
 		if (isset($_POST['submit'])) {
-			require('server/util.php');
-			// utility functions
-			$util = new Util();
-			$conn = $util->conn;
 
 			$target_dir = "uploads/";
-			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-			$uploadOk = 1;
+			$filename = time(). basename($_FILES["fileToUpload"]["name"]);
+			$target_file = $target_dir . $filename;
 			$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+			$uploadOk = true;
 
 			// Check if image file is a actual image or fake image
 			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 			if ($check !== false) {
 				echo "File is an image - " . $check["mime"] . ".";
-				$uploadOk = 1;
+				$uploadOk = true;
 			} else {
 				echo "File is not an image.";
-				$uploadOk = 0;
+				$uploadOk = false;
 			}
-
-			// Check if file already exists
-			if (file_exists($target_file)) {
-				echo "Sorry, file already exists.";
-				$uploadOk = 0;
-			}
-
-			// Check file size
-			// if ($_FILES["fileToUpload"]["size"] > 500000) {
-			// 	echo "Sorry, your file is too large.";
-			// 	$uploadOk = 0;
-			// }
 
 			// Allow certain file formats
 			if ($imageFileType != "jpg" && $imageFileType != "png"
-			 	&& $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+				&& $imageFileType != "jpeg" && $imageFileType != "gif" ) {
 				echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-				$uploadOk = 0;
+				$uploadOk = false;
 			}
 
-			// Check if $uploadOk is set to 0 by an error
-			if ($uploadOk == 0) {
-				echo "Sorry, your file was not uploaded.";
-			} else {
+			if ($uploadOk == true) {
 				// if everything is ok, try to upload file
-				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+				$result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+				if ($result == true) {
 					echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
 				} else {
 					echo "Sorry, there was an error uploading your file.";
 				}
+				$uploadOk = false;
+			} else {
+				echo "Sorry, your file was not uploaded.";
 			}
 
+			// save file reference to database
+			$query = "UPDATE users SET profile_img = '$filename'
+			WHERE id = '$userID';";
+
+			$result = $conn->query($query);
+
+			if ($result == false) {
+				// operation failed
+				echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+					unable to upload image to database, please try again later
+				</div>";
+			} else {
+				// operation successful
+				// redirect to status.php
+				$error_code = 0;
+				$message = "profile picture successfully updated";
+				
+				// echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+			}
 		}
 		?>
-
-
 
 		</div>
 		<!-- End of Main Content -->
 
 	</div> <!-- End of Content Wrapper -->
 
-	<?php include("portal_components/scripts.inc.php"); ?>
+	<?php include("components/scripts.inc.php"); ?>
 	<!-- End your project here-->
 </body>
 </html>
