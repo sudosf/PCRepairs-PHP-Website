@@ -3,7 +3,9 @@
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
             © 2022 Copyright:
-            <a class="link-dark text-dark" href="index.php">PCRepairs.com</a>
+            <a class="link-primary link-offset-2 link-underline link-underline-opacity-100-hover" href="index.php">
+                Homepage
+            </a>
         </div>
     </div>
 </footer>

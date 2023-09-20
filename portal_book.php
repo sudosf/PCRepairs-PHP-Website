@@ -54,7 +54,6 @@
                     Profile
                 </a>
             </li>
-
         </ul>
         <!-- End of Sidebar -->
 
