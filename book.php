@@ -80,7 +80,10 @@
 
 
 					<div class="input-group mb-4">
-						<span class="input-group-text fw-bold">Device Name</span>
+						<span class="input-group-text fw-bol1d text-center">
+							Device Name
+							<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+						</span>
 						<input id="pc_name" name="pc_name" class="form-control text-dark" value="" required>	
 					</div>
 
@@ -110,7 +113,10 @@
 					</div>
 
 					<!-- Message input -->
-					<p class="m-0 p-1 mt-4 fw-bold">Please provide further details of your computer issue</p>
+					<p class="m-0 p-1 mt-4 fw-bold">
+						Please provide further details of your computer issue
+						<i class="fa-solid fa-asterisk text-danger"></i>
+					</p>
 					<div class="form-outline my-2">
 						<textarea class="form-control text-dark border border-light" id="form6Example7" rows="4" name="description" value="" required></textarea>
 					</div>

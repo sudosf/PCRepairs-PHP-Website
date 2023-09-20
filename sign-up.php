@@ -72,13 +72,20 @@
                             <div class="row">
                               <div class="col-12 col-md-6 mb-4">
                                 <div class="form">
-									<label class="form-label text-light" for="form6Example1">First name</label>
-    	                            <input type="text" id="form6Example1" class="form-control" name="fname" value="<?php echo $lname; ?>" required/>
+									<label class="form-label text-light" for="form6Example1">
+										First name
+										<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+									</label>
+    	                            <input type="text" id="form6Example1" class="form-control" name="fname" value="<?php echo $fname; ?>" required/>
                                 </div>
                               </div>
+
                               <div class="col-12 col-md-6 mb-4">
                                 <div class="form">
-									<label class="form-label text-light " for="form6Example2">Last name</label>
+									<label class="form-label text-light " for="form6Example2">
+										Last name
+										<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+									</label>
                                   	<input type="text" id="form6Example2" class="form-control" name="lname" value="<?php echo $lname; ?>" required/>
                                 </div>
                               </div>
@@ -86,19 +93,29 @@
 
 							<!-- Username input -->
 							<div class="form mb-4">
-								<label class="form-label text-light " for="form6Example5">Username</label>
+								<label class="form-label text-light " for="form6Example5">
+									Username
+									<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+								</label>
                               	<input type="text" id="form6Example5" class="form-control" name="username" placeholder="e.g user123" value="<?php echo $username; ?>" required/>
                             </div>
 
                             <!-- Email input -->
                             <div class="form mb-4">
-								<label class="form-label text-light " for="form6Example5">Email</label>
+								<label class="form-label text-light " for="form6Example5">
+									Email 
+									<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+								</label>
                               	<input type="email" id="form6Example5" class="form-control" name="email" placeholder="e.g user@gmail.com" value="<?php echo $email; ?>" required/>
                             </div>
 
                             <!-- Number input -->
                             <div class="form mb-4">
-								<label class="form-label text-light" for="form6Example6">Phone</label>
+								<label class="form-label text-light" for="form6Example6">
+									Phone
+									<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+								</label>
+
                               	<input type="tel" id="form6Example6" class="form-control" name="mobile"
 							  		pattern="[0-9]{10}" title="must be 10 digits in the foramt: e.g 0713334444"
 							  		placeholder="e.g 0724535531" value="<?php echo $mobile; ?>" required
@@ -106,7 +123,10 @@
                             </div>
 
 							<div class="form form-white mb-4">
-								<label class="form-label  text-light" for="typePassword">Password</label>
+								<label class="form-label  text-light" for="typePassword">
+									Password
+									<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+								</label>
 								<input type="password" id="psw" class="form-control form-control-lg" name="psw" value="<?php echo $psw; ?>" required/>
 							</div>
 
