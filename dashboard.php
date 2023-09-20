@@ -212,6 +212,7 @@
 
                                 $query = "SELECT * FROM repair_jobs
                                         WHERE userID='$userID'";
+                                
                                 $result = $util->getTableData($query);
 
                                 if ($result != null) {

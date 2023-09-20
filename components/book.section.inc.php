@@ -95,58 +95,94 @@
                 $type = $util->strip($_POST['repair_type']);
                 $description = $util->strip($_POST['description']);
 
-                /* add to repair jobs table */
-                $query = "INSERT INTO repair_jobs (type, description, status, userID)
-                            VALUES ('$type', '$description', '$status', '$userID')";
-
-                $result = mysqli_query($conn, $query);
-                
-                $jobID = (int) mysqli_insert_id($conn); // set job ID for computers table
-
-                $error_code = 1;
-                $message = "";
-
-                if ($result == false) {
-
-                    // operation failed
-                    $error_code = 1;
-                    echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-                    	unable to book service, please try again later
-                    ".$conn->error."</div>";
-                } else {
-                    // operation successful
-                    $error_code = 0;
-                    $message = "Repair Job booked successfuly!";
-                }
-
-                /* add to computers table */
-
                 $pc_name =  $util->strip($_POST['pc_name']);
                 $pc_type = $util->strip($_POST['pc_type']);
 
-                $query = "INSERT INTO computers (name, type, repair_jobID)
-                            VALUES ('$pc_name', '$pc_type', '$jobID')";
-                
-                $result = mysqli_query($conn, $query);
+                // check if record already exists
+                $recordExists = false; 
+                $query = "SELECT repair_jobs.description AS rj_description, 
+                                repair_jobs.type AS rj_type, 
+                                computers.name AS pc_name, 
+                                computers.type AS pc_type
+                            FROM repair_jobs
+                            INNER JOIN computers
+                            ON repair_jobs.id = computers.repair_jobID
+                            WHERE userID = '$userID'";
+                $result = $util->getTableData($query);
 
-                if ($result == false) {
+                if ($result != false) {
+                    while ($row = mysqli_fetch_array($result)) {
 
-                    // operation failed
-                    $error_code = 1;
-                    echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-                    	unable to add <strong>device information</strong>, please try again later on dashboard
-                    ".$conn->error."</div>";
-                } else {
-                    // operation successful
-                    $error_code = 0;
-                    $message .= "<br>device information added.";
-                    // $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
+                        $row_description = $row['rj_description'];
+                        $row_job_type = $row['rj_type'];
+
+                        $row_pc_name = $row['pc_name'];
+                        $row_pc_type = $row['pc_type'];
+                        if ($description == $row_description && $type == $row_job_type 
+                                && $row_pc_name == $pc_name && $pc_type == $row_pc_type) {
+
+                            // record already exists
+                            $recordExists = true;
+                            echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+                                cannot add <strong>duplicate booking</strong>, repair job already exists.
+                            </div>";
+                            break;
+                        }
+                    }    
                 }
 
-                if ($error_code == 0) {
-                    // operation successful
-                    // redirect to status.php
-                    echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+                if ($recordExists == false) {
+
+                    /* add to repair jobs table */
+                    $query = "INSERT INTO repair_jobs (type, description, status, userID)
+                                VALUES ('$type', '$description', '$status', '$userID')";
+
+                    $result = mysqli_query($conn, $query);
+                    
+                    $jobID = (int) mysqli_insert_id($conn); // set job ID for computers table
+
+                    $error_code = 1;
+                    $message = "";
+
+                    if ($result == false) {
+
+                        // operation failed
+                        $error_code = 1;
+                        echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+                            unable to book service, please try again later
+                        ".$conn->error."</div>";
+                    } else {
+                        // operation successful
+                        $error_code = 0;
+                        $message = "Repair Job booked successfuly!";
+                    }
+
+                    /* add to computers table */
+                    $query = "INSERT INTO computers (name, type, repair_jobID)
+                                VALUES ('$pc_name', '$pc_type', '$jobID')";
+                    
+                    $result = mysqli_query($conn, $query);
+
+                    if ($result == false) {
+
+                        // operation failed
+                        $error_code = 1;
+                        echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+                            unable to add <strong>device information</strong>, please try again later on dashboard
+                        ".$conn->error."</div>";
+                    } else {
+                        // operation successful
+                        $error_code = 0;
+                        $message .= "<br>device information added.";
+                        // $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
+                    }
+
+                    // if ($error_code == 0) {
+                    //     // operation successful
+                    //     // redirect to status.php
+                    //     echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+                    // }
+
                 }
             }
 
