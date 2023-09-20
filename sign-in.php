@@ -1,4 +1,10 @@
-<?php include("components/head.inc.php"); ?>
+<?php include("components/head.inc.php");
+
+    if (isset($_SESSION['user_access']) ) {
+        header("Location: index.php");
+    }
+
+?>
 
 <title> PCRepairs - Sign in </title>
 </head>
