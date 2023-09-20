@@ -68,9 +68,15 @@
                                             </div>
 
                                             <div class="form mb-4">
-                                            <label class="text-light" for="typePassword">Password</label>
-                                                <input type="password" id="typePassword" name="psw"
+                                            <label class="text-light" for="psw">Password</label>
+
+                                                <input type="password" id="psw" name="psw"
                                                     class="form-control form-control-lg" requird />
+                                               
+                                                <div class="input-group mt-3">
+                                                    <input class="form-check-input" type="checkbox" onclick="showPassword()" value="" aria-label="Checkbox for following text input">
+                                                    Show Password
+                                                </div>   
                                             </div>
 
                                             <?php

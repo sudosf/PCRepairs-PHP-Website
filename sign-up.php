@@ -122,7 +122,7 @@
 								/>
                             </div>
 
-							<div class="form form-white mb-4">
+							<div class="form form-white mb-1">
 								<label class="form-label  text-light" for="typePassword">
 									Password
 									<i class="fa-solid fa-asterisk text-danger ms-2"></i>
@@ -130,10 +130,18 @@
 								<input type="password" id="psw" class="form-control form-control-lg" name="psw" value="<?php echo $psw; ?>" required/>
 							</div>
 
-							<div class="form form-white mb-4">
-								<label class="form-label  text-light" for="typePassword">Repeat Password</label>
+							<div class="form form-white mb-2">
+								<label class="form-label  text-light" for="typePassword">
+									Repeat Password
+									<i class="fa-solid fa-asterisk text-danger ms-2"></i>
+								</label>
 								<input type="password" id="psw_repeat" class="form-control form-control-lg" name="psw2" value="<?php echo $psw_repeat; ?>"  required/>
 							</div>
+
+							<div class="input-group mt-3">
+								<input class="form-check-input" type="checkbox" onclick="showPassword()" value="" aria-label="Checkbox for following text input">
+									Show Password
+							</div>   
 
 							<?php 
 							if (isset($_POST['submit'])) {
