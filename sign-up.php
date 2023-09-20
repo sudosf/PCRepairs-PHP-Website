@@ -172,16 +172,17 @@
 									$result = mysqli_query($conn, $query);
 
 									if ($result == false) {
+										// operation failed
 										echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
 											unable to add account, please make sure all details are valid
 										</div>";
 									} else {
-										echo "<div class='alert alert-success my-2 p-2 text-center' role='alert'>
-											Account successfully created, proceed to Sign in page:
-											<div class='text-center'>
-												<a href='sign-in.php' class='btn btn-primary px-4 py-2 text-light fw-bold'>Sign in</a>
-											</div>
-										</div>";
+										// operation successful
+										// redirect to status.php
+										$error_code = 0;
+										$message = "Account successfully created, you can now sign in to book services in your Portal.";
+										
+										echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>"; 
 
 										// $util->sendEmail("nkunaf.sf@gmail.com", "test Email", "many Thanks");
 									}

@@ -89,7 +89,7 @@
                                                     $_SESSION['user_access'] = 'true'; 
                                                     $_SESSION['userData'] = $userData; 
 
-                                                    echo "<script> location.replace('dashboard.php'); </script>"; // redirect to home page
+                                                   echo "<script> location.replace('dashboard.php'); </script>"; // redirect to home page
                                                 } else { // user access denied
                                                     echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
                                             unable to sign in, <strong>username/password</strong> incorrect

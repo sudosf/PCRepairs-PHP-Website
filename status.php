@@ -1,6 +1,5 @@
 <?php
-	include("portal_components/head.inc.php");
-	include("server/secure.php");
+	include("components/head.inc.php");
 ?>
 
 	<title> PCRepairs - Status </title>
@@ -8,10 +7,8 @@
 
 <body>
 
-	<input type="hidden" name="error_code_job" value="">
-	<input type="hidden" name="message_job" value="">
-	<input type="hidden" name="error_code_pc" value="">
-	<input type="hidden" name="message_pc" value="">
+	<input type="hidden" name="error_code" value="">
+	<input type="hidden" name="message" value="">
 
 	<!-- Start your project here-->
 
@@ -29,37 +26,20 @@
 
 			<?php
 
-				$error_code_job = (int) $_REQUEST['error_code_job'];
-				$message_job = $_REQUEST['message_job'];
+				$error_code = (int) $_REQUEST['error_code'];
+				$message = $_REQUEST['message'];
 
-				$error_code_pc = (int) $_REQUEST['error_code_pc'];
-				$message_pc = $_REQUEST['message_pc'];
-
-				if ($error_code_job === 0) {
-					// operation successful
-					// success Text
-					echo"
-					<div class='text-center'>
-						<div class='mx-auto display-2 fw-bold text-success' >Success!</div>
-						<p class='lead text-gray-800 mb-5'>$message_job</p>
-					</div>";
-				} else {
-					// operation failed
-					// Error Text
-					echo "
-					<div class='text-center'>
-						<div class='error mx-auto' data-text='Error'>Error</div>
-						<p class='text-gray-500 mb-0'>$message_job</p>
-					</div>";
+				if (!$error_code && !$message) {
+					echo "<script>location.replace('index.php'); </script>"; 
 				}
 
-				if ($error_code_pc === 0) {
+				if ($error_code === 0) {
 					// operation successful
 					// success Text
 					echo"
 					<div class='text-center'>
 						<div class='mx-auto display-2 fw-bold text-success' >Success!</div>
-						<p class='lead text-gray-800 mb-5'>$message_pc</p>
+						<p class='lead text-gray-800 mb-5'>$message</p>
 					</div>";
 				} else {
 					// operation failed
@@ -67,7 +47,7 @@
 					echo "
 					<div class='text-center'>
 						<div class='error mx-auto' data-text='Error'>Error</div>
-						<p class='text-gray-500 mb-0'>$message_pc</p>
+						<p class='text-gray-500 mb-0'>$message</p>
 					</div>";
 				}
 
