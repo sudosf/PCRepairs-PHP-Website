@@ -36,12 +36,13 @@
 					WHERE id = '$userID'";
 		$result = $util->getTableData($query);
 
+		$curr_profile_img = "";
 		if ($result != false) {
 			while ($row = mysqli_fetch_array($result)) {
 
-				$profile_img = $row['profile_img'];
+				$curr_profile_img = $row['profile_img'];
 				echo "<div class='container mb-5'>
-					<img src='uploads/$profile_img' class='w-25' alt='profile-picture'>
+					<img src='uploads/$curr_profile_img' class='w-25' alt='profile-picture'>
 					</div>";
 			}    
 		} else {
@@ -91,6 +92,9 @@
 				$result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 				if ($result == true) {
 					echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+
+					// delete old file
+					unlink($target_dir . $curr_profile_img);
 				} else {
 					echo "Sorry, there was an error uploading your file.";
 				}
@@ -100,23 +104,27 @@
 			}
 
 			// save file reference to database
-			$query = "UPDATE users SET profile_img = '$filename'
-			WHERE id = '$userID';";
+			// ERRORS ARE HIDDEN WHEN UPLOADING TO DATABASE
+			// SET $db_uploadOk = false to see image upload errors
+			$db_uploadOk = true;
+			if ($db_uploadOk) {
+				$query = "UPDATE users SET profile_img = '$filename'
+				WHERE id = '$userID';";
 
-			$result = $conn->query($query);
+				$result = $conn->query($query);
 
-			if ($result == false) {
-				// operation failed
-				echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
-					unable to upload image to database, please try again later
-				</div>";
-			} else {
-				// operation successful
-				// redirect to status.php
-				$error_code = 0;
-				$message = "profile picture successfully updated";
-				
-				// echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+				if ($result == false) {
+					// operation failed
+					echo "<div class='alert alert-danger my-2 p-2 text-center' role='alert'>
+						unable to upload image to database, please try again later
+					</div>";
+				} else {
+					// operation successful
+					// redirect to status.php
+					$error_code = 0;
+					$message = "profile picture successfully updated";			
+					// echo "<script>location.replace('status.php?error_code=$error_code&message=$message'); </script>";
+				}
 			}
 		}
 		?>
