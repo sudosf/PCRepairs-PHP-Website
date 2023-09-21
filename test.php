@@ -92,7 +92,7 @@
 				// if everything is ok, try to upload file
 				$result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 				if ($result == true) {
-					echo "The file has been uploaded.";
+					// echo "The file has been uploaded.";
 					// delete old file
 					unlink($target_dir . $curr_avatar);
 					$db_uploadOk = true;
@@ -107,7 +107,7 @@
 			// save file reference to database
 			// ERRORS ARE HIDDEN WHEN UPLOADING TO DATABASE (on linux)
 			// SET $db_uploadOk = false to see image upload errors
-			if ($db_uploadOk) {
+			if ($db_uploadOk == true) {
 				$query = "UPDATE users SET avatar = '$filename'
 				WHERE id = '$userID';";
 
@@ -127,6 +127,9 @@
 					</div>";
 				}
 			}
+
+			// refresh page
+			// echo "<meta http-equiv='refresh' content='0'>";
 		}
 		?>
 
