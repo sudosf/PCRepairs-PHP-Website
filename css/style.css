@@ -298,14 +298,7 @@ footer .copyright {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-animation: glow 10s linear infinite;
-          animation: glow 10s linear infinite;
-}
-
-@-webkit-keyframes glow {
-  to {
-    background-position: 200% center;
-  }
+  animation: glow 10s linear infinite;
 }
 
 @keyframes glow {

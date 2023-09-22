@@ -5,9 +5,14 @@
 	<title> Testing </title>
 </head>
 
+<style>
+	.img-cover{
+  		object-fit: cover;
+  		object-position: center;
+	}
+</style>
+
 <body>
-
-
 	<!-- Start your project here-->
 
 	<header class="container-fluid p-5" style="height: 5%">
@@ -41,8 +46,10 @@
 			while ($row = mysqli_fetch_array($result)) {
 
 				$curr_avatar = $row['avatar'];
-				echo "<div class='container mb-5'>
-					<img src='uploads/$curr_avatar' class='w-25' alt='profile-picture'>
+				echo "<div class='container w-25'>
+						<div class='ratio ratio-1x1 rounded-circle overflow-hidden shadow-4-strong'>
+							<img src='uploads/$curr_avatar' class='img-cover' alt='profile-picture'>
+						</div>
 					</div>";
 			}    
 		} else {

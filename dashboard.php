@@ -82,11 +82,6 @@
 
                     <!-- Progress Variable -->
                     <?php 
-                        require('server/util.php');
-                        // utility functions
-                        $util = new Util();
-                        $conn = $util->conn;
-
                         $userData = $_SESSION['userData'];
                         $userID = $userData['id'];
 

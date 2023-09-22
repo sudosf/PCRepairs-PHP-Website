@@ -8,9 +8,9 @@
     </button>
 
     <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto d-flex align-items-center text-center justify-content-center">
 
-        <li class='me-5 mt-3 me-lg-0'>
+        <li class=' mt-3 me-lg-0'>
             <a class='nav-link text-center rounded border border-2 border-dark' href='test.php'>
                 Testing
             </a>
@@ -135,20 +135,58 @@
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
-        <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?php
+        include("components/avatar.style.inc.php");
+        
+        $row = $_SESSION['userData'];
+        $userID = $row['id'];
+        $username = $row['username'];
 
-                <?php
-                // Show username
-                $row = $_SESSION['userData'];
-                $username = $row['username'];
+        $query = "SELECT * 
+                    FROM users
+                    WHERE id = '$userID'";
+        $result = $util->getTableData($query);
+
+        $curr_avatar = "";
+        if ($result != false) {
+            while ($row = mysqli_fetch_array($result)) {
+
+                $curr_avatar = $row['avatar'];
+            }    
+        } else {
+            // operation failed, avatar not found
+            $curr_avatar = null;
+        } 
+        ?>
+
+        <li class='d-none d-lg-block'>
+            <a class='nav-link text-dark text-center'>
+                <?php echo $username; ?>
+            </a>
+        </li>
+
+        <!-- Nav Item - User Information -->
+        <li class= "nav-link dropdown">
+            <div class="thumbnail nav-link dropdown-toggle d-flex align-items-center
+             ratio ratio-1x1 rounded-circle overflow-hidden" 
+                href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false">
+
+                <?php 
+                
+                if ($curr_avatar == null) {
+                    echo "<i class='fa fa-solid fa-user-astronaut fa-2x'></i>";
+                }
+                else {
+                    echo "<img src='uploads/$curr_avatar' class='img-cover' alt='profile-picture'>";
+                }
+
                 ?>
 
-                <span class="mr-2 d-none d-lg-inline text-dark"> <?php echo $username; ?></span>
-                <i class='fa fa-solid fa-user-astronaut fa-2x text-dark'></i>
-            </a>
+            </div>
+            
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
