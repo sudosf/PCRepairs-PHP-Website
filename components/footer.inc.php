@@ -125,7 +125,9 @@
 
     <!-- Copyright -->
     <div class="copyright text-center p-3">
-        © 2022 Copyright:
+        <!-- Footer year auto update -->
+        © <script>document.write(new Date().getFullYear())</script> Copyright:
+        
         <a class="link-grayish" href="index.php">PCRepairs.com</a>
     </div>
 </footer> <!-- Footer -->
