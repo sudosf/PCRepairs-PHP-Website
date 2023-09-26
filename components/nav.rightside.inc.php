@@ -45,7 +45,7 @@ if (isset($_SESSION['user_access']) ) {
         </li>
 
         <li class='me-3 me-lg-0'>
-            <a class='text-light px-0 me-2'>
+            <a class='text-light px-0'>
                 $username
             </a>
         </li>";
@@ -78,6 +78,12 @@ if (isset($_SESSION['user_access']) ) {
             '></i>
 
             <ul class='dropdown-menu text-center' aria-labelledby='navbarDropdownMenuLink'>
+                <li>
+                    <a class='dropdown-item ' href='profile.php'>
+                        <i class='fas fa-user fa-sm fa-fw mr-2 text-gray-400'></i>
+                        Profile
+                    </a>
+                </li>
                 <li>
                     <a class='dropdown-item p-2 text-danger' href='#' data-toggle='modal' data-target='#logoutModal'>
                         <i class='fa-solid fa-right-to-bracket'></i>
