@@ -108,7 +108,6 @@
                             <div class="card-body text-center">
 
                                 <?php
-                                // $curr_avatar = null;
                                 if ($curr_avatar == null) {
                                     echo"
                                         <i class='fa fa-solid fa-user-astronaut fa-5x text-dark'></i>
@@ -123,6 +122,107 @@
                                     </div>";
                                 }                            
                                 ?>
+
+                                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" enctype="multipart/form-data">
+                                    <div class="input-group my-3 w-50 m-auto">
+                                        <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+
+                                        <!-- Submit button -->
+                                        <button class="btn btn-primary btn-lg btn-rounded" name='submitFileUpload' type="submit">Update</button>
+                                    </div>
+
+                                    <?php
+                                    // profile avatar update
+                                    if (isset($_POST['submitFileUpload'])) {
+
+                                        if ($_FILES['fileToUpload']['name'] == "") {
+                                            // fileToUpload is empty (and not an error), or no file was uploaded
+                                            echo "<div class='alert alert-danger w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                no <strong>image</strong> choosen to upload
+                                            </div>";
+
+                                        } else {                                     
+                                            $target_dir = "uploads/";
+                                            $filename = time(). basename($_FILES["fileToUpload"]["name"]);
+                                            $target_file = $target_dir . $filename;
+                                            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                
+                                            $uploadOk = true;
+                                            $db_uploadOk = false;
+                                
+                                            // Check if image file is a actual image or fake image
+                                            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                                            if ($check !== false) {
+                                                // echo "File is an image - " . $check["mime"] . ".";
+                                                $uploadOk = true;
+                                            } else {
+                                                echo "<div class='alert alert-danger w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                        File is not an image.
+                                                </div>";
+                                                $uploadOk = false;
+                                            }
+                                
+                                            // Allow certain file formats
+                                            if ($imageFileType != "jpg" && $imageFileType != "png"
+                                                && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+                                                echo "<div class='alert alert-danger w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                        Sorry, only JPG, JPEG, PNG & GIF files are allowed.
+                                                    </div>";
+                                                $uploadOk = false;
+                                            }
+                                
+                                            if ($uploadOk == true) {
+                                                // if everything is ok, try to upload file
+                                                $result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+                                                if ($result == true) {
+                                                    // echo "The file has been uploaded.";
+                                                    // delete old file
+                                                    unlink($target_dir . $curr_avatar);
+                                                    $db_uploadOk = true;
+                                                } else {
+                                                    echo "<div class='alert alert-danger w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                            Sorry, there was an error uploading your file
+                                                        </div>";
+                                                }
+                                                $uploadOk = false;
+                                            } else {
+                                                echo "<div class='alert alert-danger w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                  Sorry, your file was not uploaded.
+                                                    </div>";
+                                            }
+                                
+                                            // save file reference to database
+                                            // ERRORS ARE HIDDEN WHEN UPLOADING TO DATABASE (on linux)
+                                            // SET $db_uploadOk = false to see image upload errors
+                                            if ($db_uploadOk == true) {
+                                                $query = "UPDATE users SET avatar = '$filename'
+                                                WHERE id = '$userID';";
+                                
+                                                $result = $conn->query($query);
+                                
+                                                if ($result == false) {
+                                                    // operation failed
+                                                    echo "<div class='alert alert-danger w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                        unable to upload image to database, please try again later
+                                                    </div>";
+                                
+                                                    unlink($target_file); // delete uploaded img
+                                                } else {
+                                                    // operation successful
+                                                    echo "<div class='alert alert-success w-50 m-auto p-1 my-1 text-center' role='alert'>
+                                                        image updated successfully
+                                                    </div>";
+                                                }
+                                            }
+                                
+                                            // refresh page
+                                            echo "<meta http-equiv='refresh' content='0'>";
+                                        }
+                                    }
+                                    
+                                    ?>
+
+                                </form>
 
                                 <h5 class="mt-3">
                                     <?php echo ucfirst($fname)." ". ucfirst($lname)." (".$username.")"; ?>
@@ -188,7 +288,7 @@
 
                                 <?php
 
-                                if (isset($_POST['submit'])) {
+                                if (isset($_POST['submitDetails'])) {
 
                                     $canUpdate = true;
 
@@ -259,7 +359,7 @@
 
                                 <!-- Submit button -->
                                 <div class="text-center mt-4">
-                                    <button class="btn btn-success btn-lg btn-rounded btn-block" name='submit' type="submit">Update</button>
+                                    <button class="btn btn-success btn-lg btn-rounded btn-block" name='submitDetails' type="submit">Update</button>
                                 </div>
                             </form>
                         </div>
